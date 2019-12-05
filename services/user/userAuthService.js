@@ -8,17 +8,15 @@ const findOneByEmail = async email => {
 };
 
 const createUser = async (name, email, pwd) => {
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(pwd, salt, async (err, hash) => {
-      if (err) throw err;
-      const newUser = new User({
-        name: name,
-        email: email,
-        password: hash
-      });
-      const user = await newUser.save();
-    });
-  });
+  const user = await findOneByEmail(email);
+  const newUser = {};
+  if (user) throw new Error("User already exist ");
+
+  newUser.name = name;
+  newUser.email = email;
+  newUser.password = await bcrypt.hash(pwd, 12);
+  const resUser = await new User(newUser).save();
+  return resUser;
 };
 
 module.exports = { createUser, findOneByEmail };

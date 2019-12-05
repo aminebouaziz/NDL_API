@@ -13,9 +13,13 @@ const authService = require("../../services/user/userAuthService");
  * @access Public
  */
 router.post("/signIn", async (req, res) => {
-  authService.createUser(req.body.name, req.body.email, req.body.password);
-  const user = await authService.findOneByEmail(req.email);
-  res.json(user);
+  const result = await authService.createUser(
+    req.body.name,
+    req.body.email,
+    req.body.password
+  );
+
+  res.json(result);
 });
 
 module.exports = router;
