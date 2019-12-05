@@ -2,7 +2,7 @@ const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 
 const findOneByEmail = async email => {
-  user = await User.findOne();
+  user = await User.findOne({ email: email });
 
   return user;
 };

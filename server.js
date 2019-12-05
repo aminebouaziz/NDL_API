@@ -5,6 +5,7 @@ const passport = require("passport");
 const app = express();
 
 const users = require("./routes/user/usersAuth");
+const post = require("./routes/post/post");
 
 // body parser midleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,6 +31,7 @@ mongoose
 
 // Use routes
 app.use("/user/userAuth", users);
+app.use("/post", post);
 
 const port = require("./config/keys").port;
 
